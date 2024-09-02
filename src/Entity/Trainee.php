@@ -42,16 +42,17 @@ class Trainee
     private ?string $phone = null;
 
     /**
-     * @var Collection<int, Belonging>
+     * @var Collection<int, Session>
      */
-    #[ORM\OneToMany(targetEntity: Belonging::class, mappedBy: 'trainee')]
-    private Collection $belongings;
+    #[ORM\ManyToMany(targetEntity: Session::class, mappedBy: 'trainees')]
+    private Collection $sessions;
 
     public function __construct()
     {
-        $this->belongings = new ArrayCollection();
+        $this->sessions = new ArrayCollection();
     }
 
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -142,32 +143,33 @@ class Trainee
     }
 
     /**
-     * @return Collection<int, Belonging>
+     * @return Collection<int, Session>
      */
-    public function getBelongings(): Collection
+    public function getSessions(): Collection
     {
-        return $this->belongings;
+        return $this->sessions;
     }
 
-    public function addBelonging(Belonging $belonging): static
+    public function addSession(Session $session): static
     {
-        if (!$this->belongings->contains($belonging)) {
-            $this->belongings->add($belonging);
-            $belonging->setTrainee($this);
+        if (!$this->sessions->contains($session)) {
+            $this->sessions->add($session);
+            $session->addTrainee($this);
         }
 
         return $this;
     }
 
-    public function removeBelonging(Belonging $belonging): static
+    public function removeSession(Session $session): static
     {
-        if ($this->belongings->removeElement($belonging)) {
-            // set the owning side to null (unless already changed)
-            if ($belonging->getTrainee() === $this) {
-                $belonging->setTrainee(null);
-            }
+        if ($this->sessions->removeElement($session)) {
+            $session->removeTrainee($this);
         }
 
         return $this;
     }
+
+   
+
+
 }

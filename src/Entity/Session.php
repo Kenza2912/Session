@@ -35,20 +35,20 @@ class Session
     #[ORM\JoinColumn(nullable: false)]
     private ?Training $training = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sessions')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Trainer $trainer = null;
-
     /**
-     * @var Collection<int, Belonging>
+     * @var Collection<int, Trainee>
      */
-    #[ORM\OneToMany(targetEntity: Belonging::class, mappedBy: 'session')]
-    private Collection $belongings;
+    #[ORM\ManyToMany(targetEntity: Trainee::class, inversedBy: 'sessions')]
+    private Collection $trainees;
+
+
+   
 
     public function __construct()
     {
         $this->programs = new ArrayCollection();
-        $this->belongings = new ArrayCollection();
+        $this->trainees = new ArrayCollection();
+       
     }
 
     public function getId(): ?int
@@ -134,45 +134,30 @@ class Session
         return $this;
     }
 
-    public function getTrainer(): ?Trainer
-    {
-        return $this->trainer;
-    }
-
-    public function setTrainer(?Trainer $trainer): static
-    {
-        $this->trainer = $trainer;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Belonging>
+     * @return Collection<int, Trainee>
      */
-    public function getBelongings(): Collection
+    public function getTrainees(): Collection
     {
-        return $this->belongings;
+        return $this->trainees;
     }
 
-    public function addBelonging(Belonging $belonging): static
+    public function addTrainee(Trainee $trainee): static
     {
-        if (!$this->belongings->contains($belonging)) {
-            $this->belongings->add($belonging);
-            $belonging->setSession($this);
+        if (!$this->trainees->contains($trainee)) {
+            $this->trainees->add($trainee);
         }
 
         return $this;
     }
 
-    public function removeBelonging(Belonging $belonging): static
+    public function removeTrainee(Trainee $trainee): static
     {
-        if ($this->belongings->removeElement($belonging)) {
-            // set the owning side to null (unless already changed)
-            if ($belonging->getSession() === $this) {
-                $belonging->setSession(null);
-            }
-        }
+        $this->trainees->removeElement($trainee);
 
         return $this;
     }
+
+
+    
 }

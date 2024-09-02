@@ -1,7 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategoryController!{% endblock %}
+{% block title %}Les Catégories{% endblock %}
 
 {% block body %}
+
+<h2>Les Catégories</h2>
+
+<a href="{{ path('category.new')}}" class="btn btn-primary">
+    Créer une catégorie
+</a>
+    <div class="container mt-4">
+        
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Numéro</th>
+                <th scope="col">Nom de la catégorie</th>
+             
+              </tr>
+            </thead>
+            <tbody>
+             
+                {% for category in categories %}
+                    <tr class="table-primary">
+                        <th scope="row">{{category.id}}</th>
+                        <td>{{category.nameCategory}}</td>
+                        <td>
+                            <a href="{{ path('edit.category', { id: category.id }) }}" class="btn btn-info">Modifier</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('delete.category', { id: category.id }) }}" class="btn btn-warning">Supprimer</a>
+                        </td>
+                        
+                    </tr>
+                
+              
+            
+            
+            
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
 
 {% endblock %}
