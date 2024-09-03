@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Modifier une Formation{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		<h1 class="mt-4">Modification d'une Formation</h1>
+
+		<form name="training" method="post">
+
+			<div class="form-group">
+				{{ form_label(form.nameTraining) }}
+				{{ form_widget(form.nameTraining) }}
+				<div class="form-error">
+					{{ form_errors(form.nameTraining) }}
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				{{ form_row(form._token) }}
+			</div>
+
+			<button type="submit" id="training_submit" name="training[submit]"   class="btn btn-primary mt-4">Modifier une formation</button>
+
+		</form>
+
+	</div>
+
+</div>{% endblock %}

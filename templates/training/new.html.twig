@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Nouvelle Formation{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		<h1 class="mt-4">Nouvelle Formation</h1>
+
+		{{ form_start(form) }}
+
+		<div class="form-group">
+			{{ form_label(form.nameTraining) }}
+			{{ form_widget(form.nameTraining) }}
+			<div class="form-error">
+				{{ form_errors(form.nameTraining) }}
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			{{ form_row(form._token) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_row(form.submit) }}
+		</div>
+
+	</div>
+	{{ form_end(form) }}
+</div>{% endblock %}

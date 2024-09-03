@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Session{% endblock %}
+
+{% block body %}
+
+<a href="" class="btn btn-primary">
+    Créer une session
+</a>
+    <div class="container mt-4">
+        
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Numéro</th>
+                <th scope="col">Nom du module</th>
+             
+              </tr>
+            </thead>
+            <tbody>
+             
+                {% for session in sessions.training %}
+                    <tr class="table-primary">
+                        <th scope="row">{{session.id}}</th>
+                        <td>{{session.training}}</td>
+                        <td>
+                            <a href="" class="btn btn-info">Modifier</a>
+                        </td>
+                        <td>
+                            <a href="" class="btn btn-warning">Supprimer</a>
+                        </td>
+                        
+                    </tr>
+                
+              
+            
+            
+            
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+                    
+        
