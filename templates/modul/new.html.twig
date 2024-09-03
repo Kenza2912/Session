@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Nouveau Modules{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		<h1 class="mt-4">Création d'un module</h1>
+
+		{{ form_start(form) }}
+
+		<div class="form-group">
+			{{ form_label(form.nameModul) }}
+			{{ form_widget(form.nameModul) }}
+			<div class="form-error">
+				{{ form_errors(form.nameModul) }}
+			</div>
+		</div>
+
+		<div class="form-group">
+			{{ form_label(form.category) }}
+			{{ form_widget(form.category) }}
+			<div class="form-error">
+				{{ form_errors(form.category) }}
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			{{ form_row(form._token) }}
+		</div>
+
+		<div class="form-group">
+			{{ form_row(form.submit) }}
+		</div>
+
+	</div>
+	{{ form_end(form) }}
+</div>{% endblock %}

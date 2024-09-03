@@ -53,6 +53,18 @@ class CategoryController extends AbstractController
 
     }
 
+    #[Route('/category/{id}', name: 'show.category')]
+    public function show(Category $category): Response
+    {
+       
+            return $this->render('category/show.html.twig', [
+                'category' =>  $category
+            ]);
+        
+    }
+
+    
+
     #[Route('/category/edit/{id}', name: 'edit.category')]
     public function edit(Category $category,Request $request,EntityManagerInterface $manager ): Response
      {
@@ -75,6 +87,8 @@ class CategoryController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+
 
     #[Route('/category/{id}/delete', name: 'delete.category')]
     public function delete(Category $category, EntityManagerInterface $entityManager): Response

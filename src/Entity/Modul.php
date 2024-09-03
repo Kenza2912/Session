@@ -95,5 +95,13 @@ class Modul
         return $this;
     }
 
+
+    public function __toString()
+    {
+        return $this->nameModul;
+    }
+
+
+
     
 }
