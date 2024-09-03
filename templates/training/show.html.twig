@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails d'une formation{% endblock %}
+
+
+{% block body %}
+
+
+<a href="{{path('session.new', {'trainingId': training.id}) }}" class="btn btn-primary">
+    Créer une session
+</a>
+    <div class="container">
+        <h2>Détails d'une formation</h2>
+
+        <h3>Tous les Sessions de la formation {{training.nameTraining}}</h3><br>
+
+       
+        
+            
+    </div>
+
+{% endblock %}

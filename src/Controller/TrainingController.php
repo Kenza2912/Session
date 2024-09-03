@@ -76,6 +76,14 @@ class TrainingController extends AbstractController
         ]);
     }
 
+    #[Route('/training/{id}', name: 'show.training')]
+    public function show(Training $training): Response
+    {
+        return $this->render('training/show.html.twig', [
+            'training' =>  $training
+        ]);
+    }
+
 
 
     #[Route('/training/{id}/delete', name: 'delete.training')]

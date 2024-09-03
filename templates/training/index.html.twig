@@ -24,7 +24,7 @@
                 {% for training in trainings %}
                     <tr class="table-primary">
                         <th scope="row">{{training.id}}</th>
-                        <td> <a href=""> {{training.nametraining}}</a></td>
+                        <td> <a href="{{ path('show.training', {id : training.id}) }}"> {{training.nametraining}}</a></td>
                         <td>
                             <a href="{{ path('edit.training', { id: training.id }) }}" class="btn btn-info">Modifier</a>
                         </td>

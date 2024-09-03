@@ -4,9 +4,7 @@
 
 {% block body %}
 
-<a href="" class="btn btn-primary">
-    Créer une session
-</a>
+
     <div class="container mt-4">
         
         <table class="table table-hover">
@@ -14,15 +12,19 @@
               <tr>
                 <th scope="col">Numéro</th>
                 <th scope="col">Nom du module</th>
+                <th scope="col">date de début</th>
+                <th scope="col">date de fin</th>
              
               </tr>
             </thead>
             <tbody>
              
-                {% for session in sessions.training %}
+                {% for session in sessions %}
                     <tr class="table-primary">
                         <th scope="row">{{session.id}}</th>
-                        <td>{{session.training}}</td>
+                        <td>{{session.training.nameTraining}}</td>
+                        <td>{{session.startDate|date('d/m/Y')}}</td>
+                        <td>{{session.endDate|date('d/m/Y')}}</td>
                         <td>
                             <a href="" class="btn btn-info">Modifier</a>
                         </td>
