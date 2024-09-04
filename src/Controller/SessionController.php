@@ -70,6 +70,35 @@ class SessionController extends AbstractController
         return $this->redirectToRoute(('app_session'));
     }
 
+    #[Route('/session/{id}', name: 'show.session')]
+    public function show(Session $session, SessionRepository $sessionRepository, TrainingRepository $trainingRepository): Response
+    {
+
+      
+        // $sessionId = $session->getId();
+        // $TraineeNotIn = $sessionRepository->findTraineeNotInSession($sessionId);
+       
+
+        $trainees= $trainingRepository->findAll();
+        
+        return $this->render('session/show.html.twig', [
+            'session' =>  $session,
+            'trainees' =>  $trainees,
+
+            // 'TraineeNotIn' => $TraineeNotIn,
+           
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
     
 
 

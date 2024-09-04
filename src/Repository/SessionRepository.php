@@ -31,6 +31,25 @@ class SessionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+//    *********requette sql *********
+// SELECT t.name, t.first_name
+// FROM trainee t
+// WHERE t.id NOT IN (SELECT tt.trainee_id FROM session_trainee tt WHERE tt.trainee_id = trainee_id);
+
+        public function findTraineeNotInSession($SessionId): array
+        {
+
+            $em = $this->getEntityManager();
+            return $this->createQueryBuilder('t')
+                ->andWhere('s.exampleField = :val')
+                ->setParameter('val', $value)
+                ->orderBy('s.id', 'ASC')
+                ->setMaxResults(10)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
 //    public function findOneBySomeField($value): ?Session
 //    {
 //        return $this->createQueryBuilder('s')
