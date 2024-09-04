@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Training;
 use App\Form\TrainingType;
+use App\Repository\SessionRepository;
 use App\Repository\TrainingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -77,10 +78,14 @@ class TrainingController extends AbstractController
     }
 
     #[Route('/training/{id}', name: 'show.training')]
-    public function show(Training $training): Response
+    public function show(Training $training, SessionRepository $sessionRepository): Response
     {
+
+        $sessions = $sessionRepository->findBy(['training'=>$training]);
+
         return $this->render('training/show.html.twig', [
-            'training' =>  $training
+            'training' =>  $training,
+            'sessions' => $sessions
         ]);
     }
 
@@ -96,5 +101,10 @@ class TrainingController extends AbstractController
 
         return $this->redirectToRoute(('app_training'));
     }
+
+    
+
+
+
 
 }

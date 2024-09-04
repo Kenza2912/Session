@@ -5,7 +5,10 @@
 {% block body %}
 
 <h2>Les Stagiaires</h2>
-
+<form action="form.php" method="post"> 
+    Search: <input type="text" name="term" /><br /> 
+    <input type="submit" value="Submit" /> 
+    </form> 
 <a href="{{ path('trainee.new')}}" class="btn btn-primary">
     Créer un stagiaire
 </a>
@@ -55,5 +58,11 @@
         </table>
 
     </div>
+
+    <ul>
+        {% for trainee in trainees %}
+            <li>{{ trainee.name }}</li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

@@ -16,20 +16,26 @@ class TraineeRepository extends ServiceEntityRepository
         parent::__construct($registry, Trainee::class);
     }
 
-    //    /**
-    //     * @return Trainee[] Returns an array of Trainee objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       /**
+        * @return Trainee[] Returns an array of Trainee objects
+        */
+
+       public function findByName(): array
+       {
+           return $this->createQueryBuilder('t')
+               ->andWhere('t.name Like = :name')
+               ->setParameter('name', '%a%')
+               ->orderBy('t.name', 'ASC')
+               ->setMaxResults(10)
+               ->getQuery()
+               ->getResult()
+           ;
+       }
+
+
+
+
+
 
     //    public function findOneBySomeField($value): ?Trainee
     //    {

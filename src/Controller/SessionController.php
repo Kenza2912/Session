@@ -58,6 +58,18 @@ class SessionController extends AbstractController
 
     }
 
+    #[Route('/session/{id}/delete', name: 'delete.session')]
+    public function delete(Session $session, EntityManagerInterface $entityManager): Response
+    {
+
+        $entityManager->remove($session);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'La session a bien été supprimée !');
+
+        return $this->redirectToRoute(('app_session'));
+    }
+
     
 
 

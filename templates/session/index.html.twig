@@ -29,7 +29,7 @@
                             <a href="" class="btn btn-info">Modifier</a>
                         </td>
                         <td>
-                            <a href="" class="btn btn-warning">Supprimer</a>
+                            <a href="" class="{{ path('delete.session', { id: session.id }) }}">Supprimer</a>
                         </td>
                         
                     </tr>
@@ -43,6 +43,9 @@
         </table>
 
     </div>
+
+
+   
 
 {% endblock %}
 

@@ -12,7 +12,16 @@
     <div class="container">
         <h2>Détails d'une formation</h2>
 
+
+
         <h3>Tous les Sessions de la formation {{training.nameTraining}}</h3><br>
+
+        {% for session in sessions %}
+        <td>{{session.training.nameTraining}}</td>
+        <td>{{session.startDate|date('d/m/Y')}}</td>
+        <td>{{session.endDate|date('d/m/Y')}}</td> <br>
+            
+        {% endfor %}
 
        
         

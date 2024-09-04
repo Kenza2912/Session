@@ -41,6 +41,10 @@ class Session
     #[ORM\ManyToMany(targetEntity: Trainee::class, inversedBy: 'sessions')]
     private Collection $trainees;
 
+    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
 
    
 
@@ -154,6 +158,18 @@ class Session
     public function removeTrainee(Trainee $trainee): static
     {
         $this->trainees->removeElement($trainee);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

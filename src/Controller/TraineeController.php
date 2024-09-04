@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Trainee;
 use App\Form\TraineeType;
 use App\Repository\TraineeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -50,11 +51,31 @@ class TraineeController extends AbstractController
            'form'=> $form->createView()
         ]);
 
+        
+    }
+
+    #[Route('/search', name: 'search.trainee')]
+    public function search(Request $request, TraineeRepository $traineeRepository): Response
+    {
+                $trainees = $traineeRepository->findByName();
+             
+            return $this->render('trainee/index.html.twig', [
+                    'trainees' => $trainees
+                    
+        ]);
     }
 
 
 
 
 
-
+   
 }
+    
+
+
+
+
+
+
+
