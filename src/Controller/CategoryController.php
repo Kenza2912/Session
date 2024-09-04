@@ -13,6 +13,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategoryController extends AbstractController
 {
+
+
+    #[Route('/', name: 'home')]
+    public function home(): Response
+    {
+       
+        return $this->render('home.html.twig');
+    }
+    
     #[Route('/category', name: 'app_category')]
     public function index(CategoryRepository $categoryRepository): Response
     {

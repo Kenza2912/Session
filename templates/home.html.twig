@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Bienvenue sur les sessions</h1>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, in tempore placeat accusamus est debitis inventore tenetur aut sunt alias cumque non qui architecto numquam laudantium! Sapiente molestias fugiat sit?!</p>
+
+    <div class="mt-4">
+        <a class="btn btn-primary" href="{{ path('app_category') }}">Voir les catégories</a>
+        {% if app.user %}
+            <a class="btn btn-success" href="">Voir mon profil</a>
+        {% else %}
+            <a class="btn btn-secondary" href="{{ path('app_login') }}">Connexion</a>
+            <a class="btn btn-info" href="{{ path('app_register') }}">Inscription</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
