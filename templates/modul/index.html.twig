@@ -3,10 +3,11 @@
 {% block title %}Les Modules{% endblock %}
 
 {% block body %}
-
-<a href="{{path('modul.new')}}" class="btn btn-primary">
-    Créer un module
-</a>
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{path('modul.new')}}" class="btn btn-primary">
+        Créer un module
+    </a>
+    {% endif %}
     <div class="container mt-4">
         
         <table class="table table-hover">
@@ -21,6 +22,7 @@
              
                 {% for modul in modules %}
                     <tr class="table-primary">
+                        {% if is_granted('ROLE_ADMIN') %}
                         <th scope="row">{{modul.id}}</th>
                         <td>{{modul.nameModul}}</td>
                         <td>
@@ -29,7 +31,7 @@
                         <td>
                             <a href="{{ path('delete.modul', { id: modul.id }) }}" class="btn btn-warning">Supprimer</a>
                         </td>
-                        
+                        {% endif %}
                     </tr>
                 
               

@@ -13,10 +13,11 @@
         <button class="btn btn-outline-secondary" type="submit" id="button-search">Rechercher</button>
     </div>
 </form>
-
-<a href="{{ path('trainee.new')}}" class="btn btn-primary mb-3">
-    Créer un stagiaire
-</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('trainee.new')}}" class="btn btn-primary mb-3">
+            Créer un stagiaire
+        </a>
+    {% endif %}
 
 <div class="container mt-4">
     <table class="table table-hover">
@@ -44,10 +45,12 @@
                     <td>{{ trainee.city }}</td>
                     <td>{{ trainee.email }}</td>
                     <td>{{ trainee.phone }}</td>
+                    {% if is_granted('ROLE_ADMIN') %}
                     <td>
                         <a href="" class="btn btn-info">Modifier</a>
                         <a href="" class="btn btn-warning">Supprimer</a>
                     </td>
+                    {% endif %}
                 </tr>
             {% else %}
                 <tr>

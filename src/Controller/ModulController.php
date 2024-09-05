@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ModulController extends AbstractController
 {
-    #[Route('/modul', name: 'app_modul')]
+    #[Route('/admin/modul', name: 'app_modul')]
     public function index(ModulRepository $modulRepository): Response
     {
 
@@ -24,7 +24,7 @@ class ModulController extends AbstractController
         ]);
     }
 
-    #[Route('/modul/new', name: 'modul.new')]
+    #[Route('/admin/modul/new', name: 'modul.new')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
 
@@ -52,7 +52,7 @@ class ModulController extends AbstractController
 
     }
 
-    #[Route('/modul/edit/{id}', name: 'edit.modul')]
+    #[Route('/admin/modul/edit/{id}', name: 'edit.modul')]
     public function edit(Modul $modul,Request $request, EntityManagerInterface $manager ): Response
      {
         $form = $this->createForm(ModulType::class, $modul);
@@ -76,7 +76,7 @@ class ModulController extends AbstractController
     }
 
     
-    #[Route('/modul/{id}', name: 'show.modul')]
+    #[Route('/admin/modul/{id}', name: 'show.modul')]
     public function show(Modul $modul): Response
     {
         return $this->render('modul/show.html.twig', [
@@ -86,7 +86,7 @@ class ModulController extends AbstractController
 
 
 
-    #[Route('/modul/{id}/delete', name: 'delete.modul')]
+    #[Route('/admin/modul/{id}/delete', name: 'delete.modul')]
     public function delete(Modul $modul, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($modul);

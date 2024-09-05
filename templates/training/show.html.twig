@@ -5,10 +5,11 @@
 
 {% block body %}
 
-
+{% if is_granted('ROLE_ADMIN') %}
 <a href="{{path('session.new', {'trainingId': training.id}) }}" class="btn btn-primary">
     Créer une session
 </a>
+{% endif %}
     <div class="container">
         <h2>Détails d'une formation</h2>
 

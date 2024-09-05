@@ -22,7 +22,7 @@ class CategoryController extends AbstractController
         return $this->render('home.html.twig');
     }
     
-    #[Route('/category', name: 'app_category')]
+    #[Route('/admin/category', name: 'app_category')]
     public function index(CategoryRepository $categoryRepository): Response
     {
 
@@ -34,7 +34,7 @@ class CategoryController extends AbstractController
         ]);
     }
 
-    #[Route('/category/new', name: 'category.new')]
+    #[Route('/admin/category/new', name: 'category.new')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
 
@@ -62,7 +62,7 @@ class CategoryController extends AbstractController
 
     }
 
-    #[Route('/category/{id}', name: 'show.category')]
+    #[Route('/admin/category/{id}', name: 'show.category')]
     public function show(Category $category): Response
     {
        
@@ -74,7 +74,7 @@ class CategoryController extends AbstractController
 
     
 
-    #[Route('/category/edit/{id}', name: 'edit.category')]
+    #[Route('/admin/category/edit/{id}', name: 'edit.category')]
     public function edit(Category $category,Request $request,EntityManagerInterface $manager ): Response
      {
         $form = $this->createForm(CategoryType::class, $category);
@@ -99,7 +99,7 @@ class CategoryController extends AbstractController
 
 
 
-    #[Route('/category/{id}/delete', name: 'delete.category')]
+    #[Route('/admin/category/{id}/delete', name: 'delete.category')]
     public function delete(Category $category, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($category);

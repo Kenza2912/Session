@@ -14,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrainingController extends AbstractController
 {
-    #[Route('/training', name: 'app_training')]
+    #[Route('/admin/training', name: 'app_training')]
     public function index(TrainingRepository $trainingRepository): Response
     {
 
@@ -25,7 +25,7 @@ class TrainingController extends AbstractController
         ]);
     }
 
-    #[Route('/training/new', name: 'training.new')]
+    #[Route('/admin/training/new', name: 'training.new')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
 
@@ -54,7 +54,7 @@ class TrainingController extends AbstractController
     }
 
 
-    #[Route('/training/edit/{id}', name: 'edit.training')]
+    #[Route('/admin/training/edit/{id}', name: 'edit.training')]
     public function edit(Training $training, Request $request,EntityManagerInterface $manager ): Response
      {
         $form = $this->createForm(TrainingType::class, $training);
@@ -77,7 +77,7 @@ class TrainingController extends AbstractController
         ]);
     }
 
-    #[Route('/training/{id}', name: 'show.training')]
+    #[Route('/admin/training/{id}', name: 'show.training')]
     public function show(Training $training, SessionRepository $sessionRepository): Response
     {
 
@@ -91,7 +91,7 @@ class TrainingController extends AbstractController
 
 
 
-    #[Route('/training/{id}/delete', name: 'delete.training')]
+    #[Route('/admin/training/{id}/delete', name: 'delete.training')]
     public function delete(Training $training, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($training);

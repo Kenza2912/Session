@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SessionController extends AbstractController
 {
-    #[Route('/session', name: 'app_session')]
+    #[Route('/admin/session', name: 'app_session')]
     public function index(SessionRepository $sessionRepository): Response
     {
         $sessions = $sessionRepository->findAll();
@@ -28,7 +28,7 @@ class SessionController extends AbstractController
     }
 
 
-    #[Route('/session/new/{trainingId}', name: 'session.new')]
+    #[Route('/admin/session/new/{trainingId}', name: 'session.new')]
     public function new(Request $request, EntityManagerInterface $manager,TrainingRepository $trainingRepository, $trainingId ): Response
     {
 
@@ -60,7 +60,7 @@ class SessionController extends AbstractController
 
     }
 
-    #[Route('/session/{id}/delete', name: 'delete.session')]
+    #[Route('/admin/session/{id}/delete', name: 'delete.session')]
     public function delete(Session $session, EntityManagerInterface $entityManager): Response
     {
 
@@ -72,7 +72,7 @@ class SessionController extends AbstractController
         return $this->redirectToRoute(('app_session'));
     }
 
-    #[Route('/session/{id}', name: 'show.session')]
+    #[Route('/admin/session/{id}', name: 'show.session')]
     public function show(Session $session, SessionRepository $sessionRepository, TrainingRepository $trainingRepository, TraineeRepository $traineeRepository): Response
     {
 
@@ -95,7 +95,7 @@ class SessionController extends AbstractController
     }
 
 
-    #[Route('session/{session}/addTrainee/{trainee}', name: 'add.trainee')]
+    #[Route('/admin/session/{session}/addTrainee/{trainee}', name: 'add.trainee')]
     public function addTrainee(Trainee $trainee, Session $session, EntityManagerInterface $entityManager)
     {
       
@@ -112,7 +112,7 @@ class SessionController extends AbstractController
     }
 
 
-    #[Route('session/{session}/removeTrainee/{trainee}', name: 'remove.trainee')]
+    #[Route('/admin/session/{session}/removeTrainee/{trainee}', name: 'remove.trainee')]
     public function removeTrainee(Trainee $trainee, Session $session, EntityManagerInterface $entityManager)
     {
         

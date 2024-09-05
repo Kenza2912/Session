@@ -11,7 +11,9 @@
         <h3>Tous les Modules de la catégorie {{category.nameCategory}}</h3><br>
 
         {% for modules in category.modules %}
+        {% if is_granted('ROLE_ADMIN') %}
             <a href="{{path('show.modul', {'id' : modules.id})}}">{{modules}}</a><br>
+            {% endif %}
         {% endfor %}
 
         

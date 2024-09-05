@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TraineeController extends AbstractController
 {
-    #[Route('/trainee', name: 'app_trainee')]
+    #[Route('/admin/trainee', name: 'app_trainee')]
     public function index(TraineeRepository $traineeRepository): Response
     {
 
@@ -25,7 +25,7 @@ class TraineeController extends AbstractController
 
 
 
-    #[Route('/trainee/new', name: 'trainee.new')]
+    #[Route('/admin/trainee/new', name: 'trainee.new')]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
 
@@ -56,7 +56,7 @@ class TraineeController extends AbstractController
 
     
 
-    #[Route('/search', name: 'search.trainee')]
+    #[Route('/admin/search', name: 'search.trainee')]
     public function search(Request $request, TraineeRepository $traineeRepository): Response
     {
         $term = $request->query->get('term');

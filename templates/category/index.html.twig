@@ -22,8 +22,11 @@
             <tbody>
              
                 {% for category in categories %}
+
                     <tr class="table-primary">
+                        {% if is_granted('ROLE_ADMIN') %}
                         <th scope="row">{{category.id}}</th>
+                        
                         <td> <a href="{{ path('show.category', {id : category.id}) }}"> {{category.nameCategory}}</a></td>
                         <td>
                             <a href="{{ path('edit.category', { id: category.id }) }}" class="btn btn-info">Modifier</a>
@@ -31,7 +34,7 @@
                         <td>
                             <a href="{{ path('delete.category', { id: category.id }) }}" class="btn btn-warning">Supprimer</a>
                         </td>
-                        
+                        {% endif %}
                     </tr>
                 
               

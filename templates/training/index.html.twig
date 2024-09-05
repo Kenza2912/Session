@@ -5,10 +5,11 @@
 {% block body %}
 
 <h2>Les Formations</h2>
-
+{% if is_granted('ROLE_ADMIN') %}
 <a href="{{ path('training.new')}}" class="btn btn-primary">
     Créer une formation
 </a>
+{% endif %}
     <div class="container mt-4">
         
         <table class="table table-hover">
@@ -23,6 +24,7 @@
              
                 {% for training in trainings %}
                     <tr class="table-primary">
+                        {% if is_granted('ROLE_ADMIN') %}
                         <th scope="row">{{training.id}}</th>
                         <td> <a href="{{ path('show.training', {id : training.id}) }}"> {{training.nametraining}}</a></td>
                         <td>
@@ -31,7 +33,7 @@
                         <td>
                             <a href="{{ path('delete.training', { id: training.id }) }}" class="btn btn-warning">Supprimer</a>
                         </td>
-                        
+                        {% endif %}
                     </tr>
                 
               
