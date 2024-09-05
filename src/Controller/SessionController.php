@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
+use App\Repository\TraineeRepository;
 use App\Repository\TrainingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,21 +72,23 @@ class SessionController extends AbstractController
     }
 
     #[Route('/session/{id}', name: 'show.session')]
-    public function show(Session $session, SessionRepository $sessionRepository, TrainingRepository $trainingRepository): Response
+    public function show(Session $session, SessionRepository $sessionRepository, TrainingRepository $trainingRepository, TraineeRepository $traineeRepository): Response
     {
 
       
-        // $sessionId = $session->getId();
-        // $TraineeNotIn = $sessionRepository->findTraineeNotInSession($sessionId);
-       
+        $sessionId = $session->getId();
+
+        
+        $nonInscrits = $sessionRepository->findTraineeNotInSession($session->getId());
 
         $trainees= $trainingRepository->findAll();
         
         return $this->render('session/show.html.twig', [
             'session' =>  $session,
             'trainees' =>  $trainees,
+            'nonInscrits' => $nonInscrits,
 
-            // 'TraineeNotIn' => $TraineeNotIn,
+            
            
         ]);
     }

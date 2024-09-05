@@ -9,6 +9,8 @@
     <div class="container">
         <h2>Détails d'une session</h2>
 
+        <h3>Les stagiaires inscrit à la session {{session.training.nameTraining}}</h3>
+
         {% for trainees in session.trainees %}
         
             {{trainees}}
@@ -17,7 +19,31 @@
             
         {% endfor %}<br>
 
-       
+         <h2>Stagiaires non inscrits à cette session</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trainee in nonInscrits %}
+                <tr>
+                    <td>{{ trainee.name }}</td>
+                    <td>{{ trainee.firstName }}</td>
+                    <td>{{ trainee.email }}</td>
+                </tr>
+            
+                
+            {% endfor %}
+            </tbody>
+        </table>
+
+    
+        <a href="{{ path('app_session') }}" class="btn btn-primary">Retour aux sessions</a>
 
        
         

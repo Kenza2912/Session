@@ -36,18 +36,29 @@ class SessionRepository extends ServiceEntityRepository
 // FROM trainee t
 // WHERE t.id NOT IN (SELECT tt.trainee_id FROM session_trainee tt WHERE tt.trainee_id = trainee_id);
 
-        public function findTraineeNotInSession($SessionId): array
+        public function findTraineeNotInSession($sessionId): array
         {
 
             $em = $this->getEntityManager();
-            return $this->createQueryBuilder('t')
-                ->andWhere('s.exampleField = :val')
-                ->setParameter('val', $value)
-                ->orderBy('s.id', 'ASC')
-                ->setMaxResults(10)
-                ->getQuery()
-                ->getResult()
-            ;
+
+            // Sous-requête pour sélectionner les stagiaires déjà inscrits à la session
+            $subQuery = $em->createQueryBuilder()
+                ->select('trainee.id')
+                ->from('App\Entity\Trainee', 'trainee')
+                ->leftJoin('trainee.sessions', 'session')
+                ->where('session.id = :sessionId')
+                ->getDQL();
+        
+            // Requête principale pour sélectionner les stagiaires non inscrits
+            $queryBuilder = $em->createQueryBuilder();
+            $queryBuilder->select('t')
+                ->from('App\Entity\Trainee', 't')
+                ->where($queryBuilder->expr()->notIn('t.id', $subQuery))
+                ->setParameter('sessionId', $sessionId)
+                ->orderBy('t.name', 'ASC');
+        
+            // Renvoyer le résultat
+            return $queryBuilder->getQuery()->getResult();
         }
 
 //    public function findOneBySomeField($value): ?Session
