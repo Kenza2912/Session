@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\Trainee;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
 use App\Repository\TraineeRepository;
@@ -92,6 +93,43 @@ class SessionController extends AbstractController
            
         ]);
     }
+
+
+    #[Route('session/{session}/addTrainee/{trainee}', name: 'add.trainee')]
+    public function addTrainee(Trainee $trainee, Session $session, EntityManagerInterface $entityManager)
+    {
+      
+        $session->addTrainee($trainee);
+
+      
+        $entityManager->persist($session);  
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Le stagiaire a été ajouté à la session.');
+
+       
+        return $this->redirectToRoute('show.session', ['id' => $session->getId()]);
+    }
+
+
+    #[Route('session/{session}/removeTrainee/{trainee}', name: 'remove.trainee')]
+    public function removeTrainee(Trainee $trainee, Session $session, EntityManagerInterface $entityManager)
+    {
+        
+        $session->removeTrainee($trainee);
+
+        
+        $entityManager->persist($session);
+        $entityManager->flush();
+
+        
+        $this->addFlash('success', 'Le stagiaire a été retiré de la session.');
+
+    
+        return $this->redirectToRoute('show.session', ['id' => $session->getId()]);
+    }
+
+   
 
 
 

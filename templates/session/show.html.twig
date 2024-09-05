@@ -2,52 +2,87 @@
 
 {% block title %}Détails d'une session{% endblock %}
 
-
 {% block body %}
 
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">Détails d'une session</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Colonne pour les stagiaires inscrits -->
+                <div class="col-md-6">
+                    <h3 class="card-title">Stagiaires inscrits à {{ session.training.nameTraining }}</h3>
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for trainee in session.trainees %}
+                                <tr>
+                                    <td>{{ trainee.name }}</td>
+                                    <td>{{ trainee.firstName }}</td>
+                                    <td>{{ trainee.email }}</td>
+                                    <td>
+                                        <a href="{{ path('remove.trainee', { 'trainee': trainee.id, 'session': session.id }) }}" class="btn btn-danger">
+                                            <span class="material-symbols-outlined">désinscription</span> 
+                                        </a>
+                                    </td>
+                                    
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3">Aucun stagiaire inscrit à cette session.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
-    <div class="container">
-        <h2>Détails d'une session</h2>
+                <!-- Colonne pour les stagiaires non inscrits -->
+                <div class="col-md-6">
+                    <h3 class="card-title">Stagiaires non inscrits à {{ session.training.nameTraining }}</h3>
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for trainee in nonInscrits %}
+                                <tr>
+                                    <td>{{ trainee.name }}</td>
+                                    <td>{{ trainee.firstName }}</td>
+                                    <td>{{ trainee.email }}</td>
+                                    <td>
+                                        <a href="{{ path('add.trainee', { 'trainee': trainee.id, 'session': session.id }) }}" class="btn btn-success">
+                                            <span class="material-symbols-outlined">Inscription</span>
+                                        </a>
+                                    </td>
+                                    
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="3">Tous les stagiaires sont inscrits à cette session.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-        <h3>Les stagiaires inscrit à la session {{session.training.nameTraining}}</h3>
-
-        {% for trainees in session.trainees %}
-        
-            {{trainees}}
-             {{session.nbPlaces}}
-             
-            
-        {% endfor %}<br>
-
-         <h2>Stagiaires non inscrits à cette session</h2>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for trainee in nonInscrits %}
-                <tr>
-                    <td>{{ trainee.name }}</td>
-                    <td>{{ trainee.firstName }}</td>
-                    <td>{{ trainee.email }}</td>
-                </tr>
-            
-                
-            {% endfor %}
-            </tbody>
-        </table>
-
-    
-        <a href="{{ path('app_session') }}" class="btn btn-primary">Retour aux sessions</a>
-
-       
-        
-            
+            <a href="{{ path('app_session') }}" class="btn btn-primary mt-3">Retour aux sessions</a>
+        </div>
     </div>
+</div>
 
 {% endblock %}
