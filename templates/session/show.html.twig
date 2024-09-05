@@ -29,11 +29,13 @@
                                     <td>{{ trainee.name }}</td>
                                     <td>{{ trainee.firstName }}</td>
                                     <td>{{ trainee.email }}</td>
+                                    {% if is_granted('ROLE_ADMIN') %}
                                     <td>
                                         <a href="{{ path('remove.trainee', { 'trainee': trainee.id, 'session': session.id }) }}" class="btn btn-danger">
                                             <span class="material-symbols-outlined">désinscription</span> 
                                         </a>
                                     </td>
+                                    {% endif %}
                                     
                                 </tr>
                             {% else %}
@@ -63,11 +65,13 @@
                                     <td>{{ trainee.name }}</td>
                                     <td>{{ trainee.firstName }}</td>
                                     <td>{{ trainee.email }}</td>
+                                    {% if is_granted('ROLE_ADMIN') %}
                                     <td>
                                         <a href="{{ path('add.trainee', { 'trainee': trainee.id, 'session': session.id }) }}" class="btn btn-success">
                                             <span class="material-symbols-outlined">Inscription</span>
                                         </a>
                                     </td>
+                                    {% endif %}
                                     
                                 </tr>
                             {% else %}

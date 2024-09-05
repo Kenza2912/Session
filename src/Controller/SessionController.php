@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Session;
 use App\Entity\Trainee;
 use App\Form\SessionType;
@@ -10,6 +11,7 @@ use App\Repository\TraineeRepository;
 use App\Repository\TrainingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,10 +31,13 @@ class SessionController extends AbstractController
 
 
     #[Route('/admin/session/new/{trainingId}', name: 'session.new')]
-    public function new(Request $request, EntityManagerInterface $manager,TrainingRepository $trainingRepository, $trainingId ): Response
+    public function new(Request $request, EntityManagerInterface $manager,TrainingRepository $trainingRepository,Security $security, $trainingId ): Response
     {
 
+        $user = $security->getUser();
+
         $training = $trainingRepository->find($trainingId);
+        
 
         $session = new Session();
         $form = $this->createForm(SessionType::class, $session);
@@ -43,6 +48,7 @@ class SessionController extends AbstractController
             $session = $form->getData();
 
             $session->setTraining($training);
+            $session->setUser($user);
 
 
             $manager->persist($session);
@@ -60,9 +66,11 @@ class SessionController extends AbstractController
 
     }
 
-    #[Route('/admin/session/{id}/delete', name: 'delete.session')]
-    public function delete(Session $session, EntityManagerInterface $entityManager): Response
+    #[Route('/admin/session/training/{id}/delete', name: 'delete.session')]
+    public function delete(Session $session, EntityManagerInterface $entityManager,TrainingRepository $trainingRepository): Response
     {
+
+        
 
         $entityManager->remove($session);
         $entityManager->flush();
@@ -71,6 +79,7 @@ class SessionController extends AbstractController
 
         return $this->redirectToRoute(('app_session'));
     }
+
 
     #[Route('/admin/session/{id}', name: 'show.session')]
     public function show(Session $session, SessionRepository $sessionRepository, TrainingRepository $trainingRepository, TraineeRepository $traineeRepository): Response
