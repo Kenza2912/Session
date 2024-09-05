@@ -54,14 +54,20 @@ class TraineeController extends AbstractController
         
     }
 
+    
+
     #[Route('/search', name: 'search.trainee')]
     public function search(Request $request, TraineeRepository $traineeRepository): Response
     {
-                $trainees = $traineeRepository->findByName();
-             
-            return $this->render('trainee/index.html.twig', [
-                    'trainees' => $trainees
-                    
+        $term = $request->query->get('term');
+        if ($term) {
+            $trainees = $traineeRepository->findByName($term);
+        } else {
+            $trainees = $traineeRepository->findAll();
+        }
+
+        return $this->render('trainee/index.html.twig', [
+            'trainees' => $trainees
         ]);
     }
 

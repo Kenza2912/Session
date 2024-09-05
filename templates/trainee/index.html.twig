@@ -5,64 +5,57 @@
 {% block body %}
 
 <h2>Les Stagiaires</h2>
-<form action="form.php" method="post"> 
-    Search: <input type="text" name="term" /><br /> 
-    <input type="submit" value="Submit" /> 
-    </form> 
-<a href="{{ path('trainee.new')}}" class="btn btn-primary">
+
+<!-- Barre de recherche -->
+<form method="GET" action="{{ path('search.trainee') }}">
+    <div class="input-group mb-3">
+        <input type="text" name="term" class="form-control" placeholder="Rechercher un stagiaire" aria-label="Rechercher un stagiaire" aria-describedby="button-search">
+        <button class="btn btn-outline-secondary" type="submit" id="button-search">Rechercher</button>
+    </div>
+</form>
+
+<a href="{{ path('trainee.new')}}" class="btn btn-primary mb-3">
     Créer un stagiaire
 </a>
-    <div class="container mt-4">
-        
-        <table class="table table-hover">
-            <thead>
-              <tr>
+
+<div class="container mt-4">
+    <table class="table table-hover">
+        <thead>
+            <tr>
                 <th scope="col">Numéro</th>
                 <th scope="col">Nom</th>
-                <th scope="col">Prenom</th>
+                <th scope="col">Prénom</th>
                 <th scope="col">Genre</th>
                 <th scope="col">Date de naissance</th>
-                <th scope="col">ville</th>
-                <th scope="col">email</th>
-                <th scope="col">numéro de téléphone</th>
-             
-              </tr>
-            </thead>
-            <tbody>
-             
-                {% for trainee in trainees %}
-                    <tr class="table-primary">
-                        <th scope="row">{{trainee.id}}</th>
-                        <td> <a href=""> {{trainee.name}}</a></td>
-                        <td> <a href=""> {{trainee.firstName}}</a></td>
-                        <td> <a href=""> {{trainee.gender}}</a></td>
-                        <td> <a href=""> {{trainee.dateBirth|date('d/m/Y')}}</a></td>
-                        <td> <a href=""> {{trainee.city}}</a></td>
-                        <td> <a href=""> {{trainee.email}}</a></td>
-                        <td> <a href=""> {{trainee.phone}}</a></td>
-                        <td>
-                            <a href="" class="btn btn-info">Modifier</a>
-                        </td>
-                        <td>
-                            <a href="" class="btn btn-warning">Supprimer</a>
-                        </td>
-                        
-                    </tr>
-                
-              
-            
-            
-            
-                {% endfor %}
-            </tbody>
-        </table>
-
-    </div>
-
-    <ul>
-        {% for trainee in trainees %}
-            <li>{{ trainee.name }}</li>
-        {% endfor %}
-    </ul>
+                <th scope="col">Ville</th>
+                <th scope="col">Email</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trainee in trainees %}
+                <tr class="table-primary">
+                    <th scope="row">{{ trainee.id }}</th>
+                    <td>{{ trainee.name }}</td>
+                    <td>{{ trainee.firstName }}</td>
+                    <td>{{ trainee.gender }}</td>
+                    <td>{{ trainee.dateBirth|date('d/m/Y') }}</td>
+                    <td>{{ trainee.city }}</td>
+                    <td>{{ trainee.email }}</td>
+                    <td>{{ trainee.phone }}</td>
+                    <td>
+                        <a href="" class="btn btn-info">Modifier</a>
+                        <a href="" class="btn btn-warning">Supprimer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">Aucun stagiaire trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}

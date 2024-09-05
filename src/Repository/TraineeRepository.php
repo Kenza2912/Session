@@ -20,17 +20,15 @@ class TraineeRepository extends ServiceEntityRepository
         * @return Trainee[] Returns an array of Trainee objects
         */
 
-       public function findByName(): array
-       {
-           return $this->createQueryBuilder('t')
-               ->andWhere('t.name Like = :name')
-               ->setParameter('name', '%a%')
-               ->orderBy('t.name', 'ASC')
-               ->setMaxResults(10)
-               ->getQuery()
-               ->getResult()
-           ;
-       }
+        public function findByName(string $term): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.name LIKE :name OR t.firstName LIKE :name')
+            ->setParameter('name', '%' . $term . '%')
+            ->orderBy('t.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
 
 
@@ -47,3 +45,10 @@ class TraineeRepository extends ServiceEntityRepository
     //        ;
     //    }
 }
+
+
+
+
+
+
+
