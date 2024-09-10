@@ -4,45 +4,40 @@
 
 {% block body %}
     {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{path('modul.new')}}" class="btn btn-primary">
+    <a href="{{path('modul.new')}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">
         Créer un module
     </a>
     {% endif %}
-    <div class="container mt-4">
+    <div class="container mx-auto mt-4">
         
-        <table class="table table-hover">
+        <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow">
             <thead>
-              <tr>
-                <th scope="col">Numéro</th>
-                <th scope="col">Nom du module</th>
-             
+              <tr class="bg-gray-100">
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Numéro</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Nom du module</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Actions</th>
+                {% endif %}
               </tr>
             </thead>
             <tbody>
-             
                 {% for modul in modules %}
-                    <tr class="table-primary">
+                    <tr class="border-t border-gray-200 hover:bg-gray-50">
+                        <td class="px-4 py-2">{{modul.id}}</td>
+                        <td class="px-4 py-2">{{modul.nameModul}}</td>
                         {% if is_granted('ROLE_ADMIN') %}
-                        <th scope="row">{{modul.id}}</th>
-                        <td>{{modul.nameModul}}</td>
-                        <td>
-                            <a href="{{ path('edit.modul', { id: modul.id }) }}" class="btn btn-info">Modifier</a>
-                        </td>
-                        <td>
-                            <a href="{{ path('delete.modul', { id: modul.id }) }}" class="btn btn-warning">Supprimer</a>
+                        <td class="px-4 py-2">
+                            <a href="{{ path('edit.modul', { id: modul.id }) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Modifier</a>
+                            <a href="{{ path('delete.modul', { id: modul.id }) }}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 ml-2">Supprimer</a>
                         </td>
                         {% endif %}
                     </tr>
-                
-              
-            
-            
-            
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center py-4">Aucun module trouvé.</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
-
     </div>
-
-
 {% endblock %}

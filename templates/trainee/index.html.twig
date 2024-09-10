@@ -4,57 +4,56 @@
 
 {% block body %}
 
-<h2>Les Stagiaires</h2>
+<h2 class="text-2xl font-bold mb-6">Les Stagiaires</h2>
 
 <!-- Barre de recherche -->
-<form method="GET" action="{{ path('search.trainee') }}">
-    <div class="input-group mb-3">
-        <input type="text" name="term" class="form-control" placeholder="Rechercher un stagiaire" aria-label="Rechercher un stagiaire" aria-describedby="button-search">
-        <button class="btn btn-outline-secondary" type="submit" id="button-search">Rechercher</button>
+<form method="GET" action="{{ path('search.trainee') }}" class="mb-6">
+    <div class="flex">
+        <input type="text" name="term" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-300 rounded py-2 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="Rechercher un stagiaire">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">Rechercher</button>
     </div>
 </form>
-    {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('trainee.new')}}" class="btn btn-primary mb-3">
-            Créer un stagiaire
-        </a>
-    {% endif %}
 
-<div class="container mt-4">
-    <table class="table table-hover">
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('trainee.new') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 inline-block">Créer un stagiaire</a>
+{% endif %}
+
+<div class="container mx-auto mt-4">
+    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow">
         <thead>
-            <tr>
-                <th scope="col">Numéro</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Prénom</th>
-                <th scope="col">Genre</th>
-                <th scope="col">Date de naissance</th>
-                <th scope="col">Ville</th>
-                <th scope="col">Email</th>
-                <th scope="col">Téléphone</th>
-                <th scope="col">Actions</th>
+            <tr class="bg-gray-100">
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Numéro</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Nom</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Prénom</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Genre</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Date de naissance</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Ville</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Email</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Téléphone</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for trainee in trainees %}
-                <tr class="table-primary">
-                    <th scope="row">{{ trainee.id }}</th>
-                    <td>{{ trainee.name }}</td>
-                    <td>{{ trainee.firstName }}</td>
-                    <td>{{ trainee.gender }}</td>
-                    <td>{{ trainee.dateBirth|date('d/m/Y') }}</td>
-                    <td>{{ trainee.city }}</td>
-                    <td>{{ trainee.email }}</td>
-                    <td>{{ trainee.phone }}</td>
+                <tr class="border-t border-gray-200 hover:bg-gray-50">
+                    <td class="px-4 py-2">{{ trainee.id }}</td>
+                    <td class="px-4 py-2">{{ trainee.name }}</td>
+                    <td class="px-4 py-2">{{ trainee.firstName }}</td>
+                    <td class="px-4 py-2">{{ trainee.gender }}</td>
+                    <td class="px-4 py-2">{{ trainee.dateBirth|date('d/m/Y') }}</td>
+                    <td class="px-4 py-2">{{ trainee.city }}</td>
+                    <td class="px-4 py-2">{{ trainee.email }}</td>
+                    <td class="px-4 py-2">{{ trainee.phone }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
-                    <td>
-                        <a href="" class="btn btn-info">Modifier</a>
-                        <a href="" class="btn btn-warning">Supprimer</a>
+                    <td class="px-4 py-2">
+                        <a href="#" class="bg-green-500 hover:bg-green-700 text-white px-3 py-1 rounded">Modifier</a>
+                        <a href="#" class="bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded ml-2">Supprimer</a>
                     </td>
                     {% endif %}
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="9">Aucun stagiaire trouvé.</td>
+                    <td colspan="9" class="text-center py-4">Aucun stagiaire trouvé.</td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -4,47 +4,50 @@
 
 {% block body %}
 
-<h2>Les Formations</h2>
-{% if is_granted('ROLE_ADMIN') %}
-<a href="{{ path('training.new')}}" class="btn btn-primary">
-    Créer une formation
-</a>
-{% endif %}
-    <div class="container mt-4">
-        
-        <table class="table table-hover">
+<div class="container mx-auto mt-8">
+    <h2 class="text-3xl font-bold mb-6 text-center">Les Formations</h2>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('training.new')}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Créer une formation
+    </a>
+    {% endif %}
+
+    <div class="overflow-x-auto mt-6">
+        <table class="min-w-full bg-white border border-gray-200 rounded-lg">
             <thead>
-              <tr>
-                <th scope="col">Numéro</th>
-                <th scope="col">Nom de la formation</th>
-             
+              <tr class="bg-gray-100">
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Numéro</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Nom de la formation</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Actions</th>
+                {% endif %}
               </tr>
             </thead>
             <tbody>
-             
                 {% for training in trainings %}
-                    <tr class="table-primary">
+                    <tr class="border-t border-gray-200 hover:bg-gray-50">
                         {% if is_granted('ROLE_ADMIN') %}
-                        <th scope="row">{{training.id}}</th>
-                        <td> <a href="{{ path('show.training', {id : training.id}) }}"> {{training.nametraining}}</a></td>
-                        <td>
-                            <a href="{{ path('edit.training', { id: training.id }) }}" class="btn btn-info">Modifier</a>
+                        <td class="px-4 py-2">{{ training.id }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{{ path('show.training', {id : training.id}) }}" class="text-blue-600 hover:text-blue-800">
+                                {{ training.nametraining }}
+                            </a>
                         </td>
-                        <td>
-                            <a href="{{ path('delete.training', { id: training.id }) }}" class="btn btn-warning">Supprimer</a>
+                        <td class="px-4 py-2">
+                            <a href="{{ path('edit.training', { id: training.id }) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Modifier</a>
+                            <a href="{{ path('delete.training', { id: training.id }) }}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 ml-2">Supprimer</a>
                         </td>
                         {% endif %}
                     </tr>
-                
-              
-            
-            
-            
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center py-4">Aucune formation trouvée</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
-
     </div>
+</div>
 
 {% endblock %}
-

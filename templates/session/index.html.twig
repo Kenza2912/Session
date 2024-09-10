@@ -3,51 +3,50 @@
 {% block title %}Session{% endblock %}
 
 {% block body %}
+<div class="container mx-auto mt-8">
+    
+    <h1 class="text-3xl font-bold mb-6 text-center">Liste des Sessions</h1>
 
-
-    <div class="container mt-4">
-        
-        <table class="table table-hover">
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 rounded-lg">
             <thead>
-              <tr>
-                <th scope="col">Numéro</th>
-                <th scope="col">Nom du module</th>
-                <th scope="col">date de début</th>
-                <th scope="col">date de fin</th>
-             
+              <tr class="bg-gray-100">
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Numéro</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Nom du module</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Date de début</th>
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Date de fin</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                <th class="px-4 py-2 text-left font-medium text-gray-700">Actions</th>
+                {% endif %}
               </tr>
             </thead>
             <tbody>
-             
                 {% for session in sessions %}
-                    <tr class="table-primary">
-                        <th scope="row">{{session.id}}</th>
-                        <td><a href="{{ path('show.session', {id : session.id}) }}">{{session.training.nameTraining}}</a></td>
-                        <td>{{session.startDate|date('d/m/Y')}}</td>
-                        <td>{{session.endDate|date('d/m/Y')}}</td>
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <td>
-                            <a href="" class="btn btn-info">Modifier</a>
+                    <tr class="border-t border-gray-200 hover:bg-gray-50">
+                        <td class="px-4 py-2">{{ session.id }}</td>
+                        <td class="px-4 py-2">
+                            <a href="{{ path('show.session', {id : session.id}) }}" class="text-blue-600 hover:text-blue-800">
+                                {{ session.training.nameTraining }}
+                            </a>
                         </td>
-                        <td>
-                            <a href="{{ path('delete.session', { id: session.id }) }}" class="btn btn-info">Supprimer</a>
+                        <td class="px-4 py-2">{{ session.startDate|date('d/m/Y') }}</td>
+                        <td class="px-4 py-2">{{ session.endDate|date('d/m/Y') }}</td>
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <td class="px-4 py-2">
+                            <a href="#" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Modifier</a>
+                            <a href="{{ path('delete.session', { id: session.id }) }}" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700 ml-2">Supprimer</a>
                         </td>
                         {% endif %}
                     </tr>
-                
-              
-            
-            
-            
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4">Aucune session trouvée</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
-
     </div>
-
-
-   
-
+</div>
 {% endblock %}
 
 

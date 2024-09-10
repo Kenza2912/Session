@@ -96,7 +96,7 @@ class RegistrationFormType extends AbstractType
                 'action_name' => 'registration',
                 'constraints' => [
                     new Assert\NotBlank([
-                        'message' => 'Veuillez valider le CAPTCHA.',
+                        'message' => 'Une erreur est survenue lors de la vérification de votre soumission. Veuillez réessayer.',
                     ]),
                 ],
             ]);
