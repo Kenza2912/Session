@@ -3,23 +3,91 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    <!-- Messages d'erreur de vérification de l'email -->
     {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4" role="alert">
+            {{ flash_error }}
+        </div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <h1 class="text-3xl font-bold mb-6">Register</h1>
 
-    {{ form_errors(registrationForm) }}
+    <!-- Affichage des erreurs du formulaire global -->
+    {% if form_errors(registrationForm) %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6">
+            {{ form_errors(registrationForm) }}
+        </div>
+    {% endif %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.nameFormateur) }}
-        {{ form_row(registrationForm.firstName) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <!-- Début du formulaire -->
+    {{ form_start(registrationForm, {'attr': {'class': 'space-y-6'}}) }}
 
-        <button type="submit" class="btn">Register</button>
+        <!-- Champ Nom du formateur -->
+        <div>
+            {{ form_row(registrationForm.nameFormateur, {
+                'attr': {
+                    'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                },
+                'label_attr': {
+                    'class': 'block text-gray-700 text-sm font-bold mb-2'
+                }
+            }) }}
+        </div>
+
+        <!-- Champ Prénom -->
+        <div>
+            {{ form_row(registrationForm.firstName, {
+                'attr': {
+                    'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                },
+                'label_attr': {
+                    'class': 'block text-gray-700 text-sm font-bold mb-2'
+                }
+            }) }}
+        </div>
+
+        <!-- Champ Email -->
+        <div>
+            {{ form_row(registrationForm.email, {
+                'attr': {
+                    'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                },
+                'label_attr': {
+                    'class': 'block text-gray-700 text-sm font-bold mb-2'
+                }
+            }) }}
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div>
+            {{ form_row(registrationForm.plainPassword, {
+                'label': 'Password',
+                'attr': {
+                    'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500'
+                },
+                'label_attr': {
+                    'class': 'block text-gray-700 text-sm font-bold mb-2'
+                }
+            }) }}
+        </div>
+
+        <!-- Checkbox des conditions générales -->
+        <div class="flex items-center">
+            {{ form_row(registrationForm.agreeTerms, {
+                'attr': {
+                    'class': 'mr-2 leading-tight'
+                },
+                'label_attr': {
+                    'class': 'text-gray-700 text-sm'
+                }
+            }) }}
+        </div>
+
+        <!-- Bouton de soumission -->
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Register
+        </button>
+
     {{ form_end(registrationForm) }}
 {% endblock %}
+

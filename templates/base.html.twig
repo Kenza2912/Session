@@ -20,58 +20,56 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
+    <body  class="bg-gray-100 text-gray-900">
         {% for message in app.flashes('success') %}
-			<div class="alert alert-success mt-4">
+			<div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4">
 				{{ message }}
 			</div>
            
 		{% endfor %}
 
-        <nav class="">
-            <div class="">
-              
-              
-              <div class="">
-                <ul class="">
-                  <li class="">
-                    <a class="" aria-current="page" href="{{path('app_category')}}">Catégorie</a>
-                  </li>
-                  <li class="">
-                    <a class="" href="{{path('app_modul')}}">Module</a>
-                  </li>
-                  <li class="">
-                    <a class="" href="{{path('app_trainee')}}">Stagiaires</a>
-                  </li>
-                  <li class="">
-                    <a class="" href="{{path('app_session')}}">Session</a>
-                  </li>
-                  <li class="">
-                    <a class="" href="{{path('app_training')}}">Formation</a>
-                  </li>
-                </ul>
-                <ul class="navbar-nav">
-                  {% if app.user %}
-                      <li class="">
-                          <a class="" href="">Profil</a>
-                      </li>
-                      <li class="">
-                          <a class="" href="{{ path('app_logout') }}">Déconnexion</a>
-                      </li>
-                  {% else %}
-                      <li class="">
-                          <a class="" href="{{ path('app_login') }}">Connexion</a>
-                      </li>
-                      <li class="">
-                          <a class="" href="{{ path('app_register') }}">Inscription</a>
-                      </li>
-                  {% endif %}
-              </ul>
-              </div>
-            </div>
-          </nav>
+    <nav class="bg-white shadow-md p-4">
+      <div class="container mx-auto flex justify-between">
+        <ul class="flex space-x-4">
+            <li>
+                <a class="text-gray-700 hover:text-gray-900" aria-current="page" href="{{path('app_category')}}">Catégorie</a>
+            </li>
+            <li>
+                <a class="text-gray-700 hover:text-gray-900" href="{{path('app_modul')}}">Module</a>
+            </li>
+            <li>
+                <a class="text-gray-700 hover:text-gray-900" href="{{path('app_trainee')}}">Stagiaires</a>
+            </li>
+            <li>
+                <a class="text-gray-700 hover:text-gray-900" href="{{path('app_session')}}">Session</a>
+            </li>
+            <li>
+                <a class="text-gray-700 hover:text-gray-900" href="{{path('app_training')}}">Formation</a>
+            </li>
+        </ul>
 
-          
-        {% block body %}{% endblock %}
+        <ul class="flex space-x-4">
+            {% if app.user %}
+                <li>
+                    <a class="text-gray-700 hover:text-gray-900" href="">Profil</a>
+                </li>
+                <li>
+                    <a class="text-gray-700 hover:text-gray-900" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+            {% else %}
+                <li>
+                    <a class="text-gray-700 hover:text-gray-900" href="{{ path('app_login') }}">Connexion</a>
+                </li>
+                <li>
+                    <a class="text-gray-700 hover:text-gray-900" href="{{ path('app_register') }}">Inscription</a>
+                </li>
+            {% endif %}
+        </ul>
+      </div>
+  </nav>
+
+  <div class="container mx-auto py-8">
+      {% block body %}{% endblock %}
+  </div>
     </body>
 </html>
