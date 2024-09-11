@@ -51,9 +51,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+    /**
+     * @var Collection<int, ResetPasswordRequest>
+     */
+    #[ORM\OneToMany(targetEntity: ResetPasswordRequest::class, mappedBy: 'user')]
+    private Collection $resetPasswordRequests;
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
+        $this->resetPasswordRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +200,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ResetPasswordRequest>
+     */
+    public function getResetPasswordRequests(): Collection
+    {
+        return $this->resetPasswordRequests;
+    }
+
+    public function addResetPasswordRequest(ResetPasswordRequest $resetPasswordRequest): static
+    {
+        if (!$this->resetPasswordRequests->contains($resetPasswordRequest)) {
+            $this->resetPasswordRequests->add($resetPasswordRequest);
+            $resetPasswordRequest->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResetPasswordRequest(ResetPasswordRequest $resetPasswordRequest): static
+    {
+        if ($this->resetPasswordRequests->removeElement($resetPasswordRequest)) {
+            // set the owning side to null (unless already changed)
+            if ($resetPasswordRequest->getUser() === $this) {
+                $resetPasswordRequest->setUser(null);
+            }
+        }
 
         return $this;
     }
